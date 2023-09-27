@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:random_generator/controller/controller.dart';
 import 'package:random_generator/views/home_view.dart';
 
 void main() {
@@ -17,13 +16,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      themeMode: ThemeMode.system,
       home: const HomeView(),
-      initialBinding: BindingsBuilder(() {
-        Get.lazyPut(() => AppController());
-      }),
     );
   }
 }
