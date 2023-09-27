@@ -90,6 +90,8 @@ class TextController extends GetxController {
   void randomText() {
     if (textList.isNotEmpty) {
       ansRandom.value = textList[rnd.nextInt(textList.length)].toString();
-    } else {}
+    } else {
+      ansRandom.value = 'No Item';
+    }
   }
 }
