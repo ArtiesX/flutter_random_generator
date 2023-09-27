@@ -19,3 +19,8 @@ samples, guidance on mobile development, and a full API reference.
 ## Framework version
 - Flutter 3.13.1
 - Tools - Dart 3.1.0 - DevTools 2.25.0
+
+## How to build apk file?
+```
+flutter build apk --target-platform android-arm,android-arm64,android-x64
+```
