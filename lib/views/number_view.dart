@@ -16,16 +16,14 @@ class NumberView extends GetView<NumberController> {
           color: Theme.of(context).colorScheme.primaryContainer,
           child: Center(
               child: Obx(
-            () => controller.isAnimate.value == false
-                ? Text(
-                    controller.ansRandom.value.toString(),
-                    style: TextStyle(
-                        fontSize: controller.ansRandom.value ==
-                                'Press the button to start randomly'
-                            ? 18.0
-                            : 40.0),
-                  )
-                : const CircularProgressIndicator(),
+            () => Text(
+              controller.ansRandom.value.toString(),
+              style: TextStyle(
+                  fontSize: controller.ansRandom.value ==
+                          'Press the button to start randomly'
+                      ? 18.0
+                      : 40.0),
+            ),
           )),
         ),
         Padding(

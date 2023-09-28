@@ -28,11 +28,11 @@ class _HomeViewState extends State<HomeView> {
     switch (screenIndex) {
       case 0:
         Get.lazyPut(() => NumberController());
-        Get.delete<TextController>();
+        // Get.delete<TextController>();
         break;
       case 1:
         Get.lazyPut(() => TextController());
-        Get.delete<NumberController>();
+        // Get.delete<NumberController>();
         break;
     }
     closeDrawer();
@@ -50,6 +50,7 @@ class _HomeViewState extends State<HomeView> {
   void initState() {
     super.initState();
     Get.lazyPut(() => NumberController());
+    Get.lazyPut(() => TextController());
   }
 
   @override
@@ -60,6 +61,8 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final nCtrl = Get.find<NumberController>();
+    final tCtrl = Get.find<TextController>();
     return Scaffold(
       key: scaffoldKey,
       appBar: AppBar(
@@ -105,39 +108,36 @@ class _HomeViewState extends State<HomeView> {
       ),
       body: screenList[screenIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Container(
-        height: Get.height * 0.07,
-        margin: const EdgeInsets.all(10),
-        child: TextButton(
-          style: TextButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-            shadowColor: Colors.black,
-            elevation: 4,
-          ),
-          onPressed: () async {
-            switch (screenIndex) {
-              case 0:
-                final nCtrl = Get.find<NumberController>();
-                nCtrl.isAnimate.value = true;
-                await Future.delayed(const Duration(milliseconds: 500), () {
-                  nCtrl.isAnimate.value = false;
-                  nCtrl.getRandomNumber();
-                });
-                break;
-              case 1:
-                final tCtrl = Get.find<TextController>();
-                tCtrl.isAnimate.value = true;
-                await Future.delayed(const Duration(milliseconds: 500), () {
-                  tCtrl.isAnimate.value = false;
-                  tCtrl.randomText();
-                });
-                break;
-            }
-          },
-          child: const Center(
-            child: Text(
-              'Random',
-              style: TextStyle(fontSize: 18),
+      floatingActionButton: Obx(
+        () => Container(
+          height: Get.height * 0.07,
+          margin: const EdgeInsets.all(10),
+          child: TextButton(
+            style: TextButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              shadowColor: Colors.black,
+              elevation: 4,
+            ),
+            onPressed:
+                nCtrl.isAnimate.value == false && tCtrl.isAnimate.value == false
+                    ? () async {
+                        switch (screenIndex) {
+                          case 0:
+                            nCtrl.isAnimate.value = true;
+                            nCtrl.getRandomNumber();
+                            break;
+                          case 1:
+                            tCtrl.isAnimate.value = true;
+                            tCtrl.randomText();
+                            break;
+                        }
+                      }
+                    : null,
+            child: const Center(
+              child: Text(
+                'Random',
+                style: TextStyle(fontSize: 18),
+              ),
             ),
           ),
         ),

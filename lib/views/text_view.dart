@@ -18,18 +18,16 @@ class TextView extends GetView<TextController> {
           color: Theme.of(context).colorScheme.primaryContainer,
           child: Center(
             child: Obx(
-              () => controller.isAnimate.value == false
-                  ? Text(
-                      controller.ansRandom.value.toString(),
-                      style: TextStyle(
-                          fontSize: controller.ansRandom.value ==
-                                  'Press the button to start randomly'
-                              ? 18.0
-                              : controller.ansRandom.value == 'No Item'
-                                  ? 18.0
-                                  : 40.0),
-                    )
-                  : const CircularProgressIndicator(),
+              () => Text(
+                controller.ansRandom.value.toString(),
+                style: TextStyle(
+                    fontSize: controller.ansRandom.value ==
+                            'Press the button to start randomly'
+                        ? 18.0
+                        : controller.ansRandom.value == 'No Item'
+                            ? 18.0
+                            : 40.0),
+              ),
             ),
           ),
         ),

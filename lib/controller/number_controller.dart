@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class NumberController extends GetxController {
   late TextEditingController maxCtrl;
   var ansRandom = "Press the button to start randomly".obs;
   Rx<bool> isAnimate = false.obs;
+  late Timer _timer;
   @override
   void onInit() {
     super.onInit();
@@ -100,10 +102,18 @@ class NumberController extends GetxController {
     maxCtrl.clear();
   }
 
-  void getRandomNumber() {
-    ansRandom.value =
-        RandomNubmer.generate(min: minNumber.value, max: maxNumber.value)
-            .toString();
+  Future<void> getRandomNumber() async {
+    isAnimate.value == true
+        ? _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
+            ansRandom.value = RandomNubmer.generate(
+                    min: minNumber.value, max: maxNumber.value)
+                .toString();
+          })
+        : null;
+    await Future.delayed(const Duration(seconds: 2), () {
+      _timer.cancel();
+    });
+    isAnimate.value = false;
   }
 }
 

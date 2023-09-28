@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -5,13 +6,17 @@ import 'package:get/get.dart';
 
 final rnd = Random();
 
-class TextController extends GetxController {
-  var textList = [].obs;
+class TextController extends GetxController
+    with GetSingleTickerProviderStateMixin {
+  var textList = ["1", "2", "3"].obs;
   var cloneList = [];
   late TextEditingController textCtrl;
   var ansRandom = "Press the button to start randomly".obs;
   Rx<bool> isAnimate = false.obs;
   Rx<bool> isRepeated = false.obs;
+  late Timer _timer;
+
+  // animation controller
   @override
   void onInit() {
     super.onInit();
@@ -87,11 +92,21 @@ class TextController extends GetxController {
     textList.clear();
   }
 
-  void randomText() {
-    if (textList.isNotEmpty) {
-      ansRandom.value = textList[rnd.nextInt(textList.length)].toString();
-    } else {
-      ansRandom.value = 'No Item';
-    }
+  Future<void> randomText() async {
+    int duration = (textList.length * 100) ~/ (textList.length - 1);
+    isAnimate.value == true
+        ? _timer = Timer.periodic(Duration(milliseconds: duration), (timer) {
+            if (textList.isNotEmpty) {
+              ansRandom.value =
+                  textList[rnd.nextInt(textList.length)].toString();
+            } else {
+              ansRandom.value = 'No Item';
+            }
+          })
+        : null;
+    await Future.delayed(const Duration(seconds: 2), () {
+      _timer.cancel();
+    });
+    isAnimate.value = false;
   }
 }
