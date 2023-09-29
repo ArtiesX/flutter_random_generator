@@ -33,3 +33,4 @@ flutter build apk --target-platform android-arm,android-arm64,android-x64
 - [x] Shake to Random number
 - [ ] Shake to Random Text
 - [ ] Store to Local Storage
+- [ ] Histroy
