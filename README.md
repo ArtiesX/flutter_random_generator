@@ -24,3 +24,12 @@ samples, guidance on mobile development, and a full API reference.
 ```
 flutter build apk --target-platform android-arm,android-arm64,android-x64
 ```
+
+## Features 
+- [x] Random Number
+- [x] Random Text
+- [x] Support DarkMode
+- [ ] Can change theme manual mode.
+- [x] Shake to Random number
+- [ ] Shake to Random Text
+- [ ] Store to Local Storage
