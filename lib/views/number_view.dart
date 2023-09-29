@@ -8,11 +8,12 @@ class NumberView extends GetView<NumberController> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       children: <Widget>[
         Container(
           width: double.infinity,
-          height: Get.height * 0.3,
+          height: MediaQuery.of(context).size.height * 0.3,
           color: Theme.of(context).colorScheme.primaryContainer,
           child: Center(
               child: Obx(

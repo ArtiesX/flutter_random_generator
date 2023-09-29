@@ -106,7 +106,7 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: screenList[screenIndex],
+      body: SafeArea(child: screenList[screenIndex]),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Obx(
         () => Container(

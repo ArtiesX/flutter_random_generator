@@ -14,7 +14,7 @@ class TextView extends GetView<TextController> {
       children: <Widget>[
         Container(
           width: double.infinity,
-          height: Get.size.height * 0.3,
+          height: MediaQuery.of(context).size.height * 0.3,
           color: Theme.of(context).colorScheme.primaryContainer,
           child: Center(
             child: Obx(
