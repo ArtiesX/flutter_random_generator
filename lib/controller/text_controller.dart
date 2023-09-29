@@ -93,6 +93,7 @@ class TextController extends GetxController
   }
 
   Future<void> randomText() async {
+    isAnimate.value = true;
     int duration = (textList.length * 100) ~/ (textList.length - 1);
     isAnimate.value == true
         ? _timer = Timer.periodic(Duration(milliseconds: duration), (timer) {

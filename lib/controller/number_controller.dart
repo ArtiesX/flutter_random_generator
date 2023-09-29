@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shake/shake.dart';
 
 final random = Random();
 
@@ -13,12 +14,26 @@ class NumberController extends GetxController {
   late TextEditingController maxCtrl;
   var ansRandom = "Press the button to start randomly".obs;
   Rx<bool> isAnimate = false.obs;
-  late Timer _timer;
+  late Timer timer;
+  late ShakeDetector _detector;
   @override
   void onInit() {
     super.onInit();
     minCtrl = TextEditingController();
     maxCtrl = TextEditingController();
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+
+    _detector = ShakeDetector.waitForStart(onPhoneShake: () {
+      isAnimate.value = true;
+      _detector.stopListening();
+      getRandomNumber();
+    });
+
+    _detector.startListening();
   }
 
   @override
@@ -103,17 +118,19 @@ class NumberController extends GetxController {
   }
 
   Future<void> getRandomNumber() async {
+    _detector.stopListening();
     isAnimate.value == true
-        ? _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
+        ? timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
             ansRandom.value = RandomNubmer.generate(
                     min: minNumber.value, max: maxNumber.value)
                 .toString();
           })
         : null;
     await Future.delayed(const Duration(seconds: 2), () {
-      _timer.cancel();
+      timer.cancel();
     });
     isAnimate.value = false;
+    _detector.startListening();
   }
 }
 
